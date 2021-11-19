@@ -1,7 +1,7 @@
 # Личный проект «Типотека» [![Build status][travis-image]][travis-url]
 
-* Студент: [Неопознанный енот](https://up.htmlacademy.ru/nodejs/3/user/1967311).
-* Наставник: `Неизвестно`.
+* Студент: [Руслан](https://up.htmlacademy.ru/nodejs/3/user/1967311).
+* Наставник: [`Вадим Шевяков`](https://htmlacademy.ru/profile/id574589).
 
 ---
 
