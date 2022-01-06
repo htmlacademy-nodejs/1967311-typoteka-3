@@ -1,7 +1,10 @@
 const fs = require('fs');
 const {getRandomInt, shuffle, getPictureFileName} = require('../../utils')
 
+const MAX_OFFER_COUNT = 1000;
 const DEFAULT_COUNT = 1;
+const MIN_OFFER_SENTENCE_COUNT = 1;
+const MAX_OFFER_SENTENCE_COUNT = 5;
 const FILE_NAME = `mocks.json`;
 
 const TITLES = [
@@ -61,7 +64,7 @@ const PictureRestrict = {
 const generateOffers = (count ) => (
   Array(count || DEFAULT_COUNT).fill({}).map(() => ({
     category: [CATEGORIES[getRandomInt(0, CATEGORIES.length - 1)]],
-    description: shuffle(SENTENCES).slice(1, 5).join(` `),
+    description: shuffle(SENTENCES).slice(MIN_OFFER_SENTENCE_COUNT, MAX_OFFER_SENTENCE_COUNT).join(` `),
     picture: getPictureFileName(getRandomInt(PictureRestrict.MIN, PictureRestrict.MAX)),
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
     type: OfferType[Object.keys(OfferType)[Math.floor(Math.random() * Object.keys(OfferType).length)]],
@@ -72,15 +75,14 @@ const generateOffers = (count ) => (
 const generate = {
   name: '--generate',
   run(params) {
-    console.log('params: ', params)
     const count = +params[0] || DEFAULT_COUNT;
-    if (count > 1000) {
+    if (count > MAX_OFFER_COUNT) {
       return console.info('Не больше 1000 объявлений')
     }
     try {
       fs.writeFileSync(FILE_NAME, JSON.stringify(generateOffers(count)))
     } catch (err) {
-      exit(1)
+      process.exit(1)
     }
     console.info(`Operation success. File created.`);
 

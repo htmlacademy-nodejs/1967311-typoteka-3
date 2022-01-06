@@ -1,7 +1,6 @@
 'use strict';
 
 const {Cli} = require(`./cli`);
-console.log('Cli: ', Cli)
 const {
   DEFAULT_COMMAND,
   USER_ARGV_INDEX,
