@@ -6,7 +6,7 @@ const MAX_OFFER_COUNT = 1000;
 const DEFAULT_COUNT = 1;
 const MIN_OFFER_SENTENCE_COUNT = 1;
 const MAX_OFFER_SENTENCE_COUNT = 5;
-const FILE_NAME = `mocks.json`;
+const FILE_NAME = `./mocks.json`;
 
 const FILE_SENTENCES_PATH = `../../data/sentences.txt`;
 const FILE_TITLES_PATH = `../../data/titles.txt`;
