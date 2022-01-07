@@ -1,5 +1,6 @@
-const fs = require('fs');
-const {getRandomInt, shuffle, getPictureFileName} = require('../../utils')
+const fs = require('fs').promises;
+const {getRandomInt, shuffle, getPictureFileName} = require('../../utils');
+const chalk = require('chalk');
 
 const MAX_OFFER_COUNT = 1000;
 const DEFAULT_COUNT = 1;
@@ -74,19 +75,19 @@ const generateOffers = (count ) => (
 
 const generate = {
   name: '--generate',
-  run(params) {
-    const count = +params[0] || DEFAULT_COUNT;
-    if (count > MAX_OFFER_COUNT) {
-      return console.info('Не больше 1000 объявлений')
+    async run(params) {
+      const count = +params[0] || DEFAULT_COUNT;
+      if (count > MAX_OFFER_COUNT) {
+        return console.error(chalk.red('Не больше 1000 объявлений'))
+      }
+      try {
+        await fs.writeFile(FILE_NAME, JSON.stringify(generateOffers(count)))
+      } catch (err) {
+        console.error('generation error: ', err);
+        process.exit(1)
+      }
+      console.log(chalk.green(`Operation success. File created.`));
     }
-    try {
-      fs.writeFileSync(FILE_NAME, JSON.stringify(generateOffers(count)))
-    } catch (err) {
-      process.exit(1)
-    }
-    console.info(`Operation success. File created.`);
-
-  }
 }
 
 module.exports = {generate};
