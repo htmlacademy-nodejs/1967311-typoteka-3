@@ -85,7 +85,6 @@ const generate = {
       process.exit(1)
     }
     console.info(`Operation success. File created.`);
-
   }
 }
 
