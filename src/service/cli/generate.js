@@ -1,75 +1,77 @@
 const fs = require('fs').promises;
-const {getRandomInt, shuffle, getPictureFileName} = require('../../utils');
+const { getRandomInt, shuffle } = require('../../utils');
 const chalk = require('chalk');
 
 const MAX_OFFER_COUNT = 1000;
 const DEFAULT_COUNT = 1;
-const MIN_OFFER_SENTENCE_COUNT = 1;
-const MAX_OFFER_SENTENCE_COUNT = 5;
+const MIN_ANNOUNCE_SENTENCE_COUNT = 1;
+const MAX_ANNOUNCE_SENTENCE_COUNT = 5;
+const MIN_FULLTEXT_SENTENCE_COUNT = 10;
+const MAX_FULLTEXT_SENTENCE_COUNT = 50;
 const FILE_NAME = `mocks.json`;
 
 const TITLES = [
-  `Продам книги Стивена Кинга`,
-  `Продам новую приставку Sony Playstation 5`,
-  `Продам отличную подборку фильмов на VHS`,
-  `Куплю антиквариат`,
-  `Куплю породистого кота`,
-  'Продам коллекцию журналов «Огонёк».',
-  'Отдам в хорошие руки подшивку «Мурзилка».',
-  'Продам советскую посуду. Почти не разбита.',
-  'Куплю детские санки.'
+  `Ёлки. История деревьев`,
+  `Как перестать беспокоиться и начать жить`,
+  `Как достигнуть успеха не вставая с кресла`,
+  'Обзор новейшего смартфона',
+  'Лучшие рок-музыканты 20-века',
+  'Как начать программировать',
+  'Учим HTML и CSS',
+  'Что такое золотое сечение',
+  'Как собрать камни бесконечности',
+  'Борьба с прокрастинацией',
+  'Рок — это протест',
+  'Самый лучший музыкальный альбом этого года'
 ];
 
 const SENTENCES = [
-  `Товар в отличном состоянии.`,
-  `Пользовались бережно и только по большим праздникам.`,
-  `Продаю с болью в сердце...`,
-  `Бонусом отдам все аксессуары.`,
-  `Даю недельную гарантию.`,
-  `Если товар не понравится — верну всё до последней копейки.`,
-  `Это настоящая находка для коллекционера!`,
-  `Если найдёте дешевле — сброшу цену.`,
-  `Таких предложений больше нет!`,
-  `При покупке с меня бесплатная доставка в черте города.`,
-  'Кажется, что это хрупкая вещь.',
-  'Мой дед не мог её сломать.',
-  'Кому нужен этот новый телефон, если тут такое...',
-  'Не пытайтесь торговаться. Цену вещам я знаю.'
+  `Первая большая ёлка была установлена только в 1938 году.`,
+  `Вы можете достичь всего. Стоит только немного постараться и запастись книгами.`,
+  `Этот смартфон — настоящая находка. Большой и яркий экран, мощнейший процессор — всё это в небольшом гаджете.`,
+  'Золотое сечение — соотношение двух величин, гармоническая пропорция.',
+  'Собрать камни бесконечности легко, если вы прирожденный герой.',
+  'Освоить вёрстку несложно. Возьмите книгу новую книгу и закрепите все упражнения на практике.',
+  'Бороться с прокрастинацией несложно. Просто действуйте. Маленькими шагами.',
+  'Программировать не настолько сложно, как об этом говорят.',
+  'Простые ежедневные упражнения помогут достичь успеха.',
+  'Это один из лучших рок-музыкантов.',
+  'Он написал больше 30 хитов.',
+  'Из под его пера вышло 8 платиновых альбомов.',
+  'Процессор заслуживает особого внимания. Он обязательно понравится геймерам со стажем.',
+  'Рок-музыка всегда ассоциировалась с протестами. Так ли это на самом деле?',
+  'Достичь успеха помогут ежедневные повторения.',
+  'Помните, небольшое количество ежедневных упражнений лучше, чем один раз, но много.',
+  'Как начать действовать? Для начала просто соберитесь.',
+  'Игры и программирование разные вещи. Не стоит идти в программисты, если вам нравятся только игры.',
+  'Альбом стал настоящим открытием года. Мощные гитарные рифы и скоростные соло-партии не дадут заскучать.'
 ];
 
 const CATEGORIES = [
-  `Книги`,
+  `Деревья`,
+  `За жизнь`,
+  `Без рамки`,
   `Разное`,
-  `Посуда`,
-  `Игры`,
-  `Животные`,
-  `Журналы`,
+  `IT`,
+  `Музыка`,
+  'Кино',
+  'Программирование',
+  'Железо'
 ];
 
-const OfferType = {
-  OFFER: `offer`,
-  SALE: `sale`,
-};
-
-
-const SumRestrict = {
-  MIN: 1000,
-  MAX: 100000,
-};
-
-const PictureRestrict = {
-  MIN: 1,
-  MAX: 16,
-};
+const CREATE_DATES = [
+  new Date(2022, 1, 2),
+  new Date(2021, 11, 11),
+  new Date(2021, 10, 29),
+]
 
 const generateOffers = (count ) => (
   Array(count || DEFAULT_COUNT).fill({}).map(() => ({
-    category: [CATEGORIES[getRandomInt(0, CATEGORIES.length - 1)]],
-    description: shuffle(SENTENCES).slice(MIN_OFFER_SENTENCE_COUNT, MAX_OFFER_SENTENCE_COUNT).join(` `),
-    picture: getPictureFileName(getRandomInt(PictureRestrict.MIN, PictureRestrict.MAX)),
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
-    type: OfferType[Object.keys(OfferType)[Math.floor(Math.random() * Object.keys(OfferType).length)]],
-    sum: getRandomInt(SumRestrict.MIN, SumRestrict.MAX),
+    createdDate: CREATE_DATES[getRandomInt(0, CREATE_DATES.length)],
+    announce: shuffle(SENTENCES).slice(MIN_ANNOUNCE_SENTENCE_COUNT, MAX_ANNOUNCE_SENTENCE_COUNT).join(` `),
+    fullText: shuffle(SENTENCES).slice(MIN_FULLTEXT_SENTENCE_COUNT, MAX_FULLTEXT_SENTENCE_COUNT).join(` `),
+    category: [CATEGORIES[getRandomInt(0, CATEGORIES.length - 1)]],
   }))
 );
 
@@ -78,7 +80,7 @@ const generate = {
     async run(params) {
       const count = +params[0] || DEFAULT_COUNT;
       if (count > MAX_OFFER_COUNT) {
-        return console.error(chalk.red('Не больше 1000 объявлений'))
+        return console.error(chalk.red('Не больше 1000 постов'))
       }
       try {
         await fs.writeFile(FILE_NAME, JSON.stringify(generateOffers(count)))
