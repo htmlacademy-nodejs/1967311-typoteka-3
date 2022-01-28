@@ -1,9 +1,10 @@
 const packageJsonFile = require('../../../package.json')
+const chalk = require("chalk");
 
 const version = {
   name: '--version',
   run() {
-    console.info(packageJsonFile.version)
+    console.log(chalk.blue(packageJsonFile.version))
   }
 }
 

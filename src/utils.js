@@ -14,7 +14,3 @@ module.exports.shuffle = (someArray) => {
   return someArray;
 };
 
-
-module.exports.getPictureFileName = () => {
-  return '';
-}

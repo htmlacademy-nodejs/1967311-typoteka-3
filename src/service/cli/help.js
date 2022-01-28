@@ -1,7 +1,8 @@
+const chalk = require("chalk");
 const help = {
   name: '--help',
   run() {
-    console.info(`
+    console.log( chalk.gray(`
     Программа запускает http-сервер и формирует файл с данными для API.
 
     Гайд:
@@ -11,7 +12,7 @@ const help = {
     --version:            выводит номер версии
     --help:               печатает этот текст
     --generate <count>    формирует файл mocks.json
-`)
+`))
   }
 }
 
