@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports.HttpCode = {
   OK: 200,
   NOT_FOUND: 404,
