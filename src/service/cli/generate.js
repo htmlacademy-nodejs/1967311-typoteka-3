@@ -11,7 +11,6 @@ const MIN_ANNOUNCE_SENTENCE_COUNT = 1;
 const MAX_ANNOUNCE_SENTENCE_COUNT = 5;
 const MIN_FULLTEXT_SENTENCE_COUNT = 10;
 const MAX_FULLTEXT_SENTENCE_COUNT = 50;
-const FILE_NAME = `mocks.json`;
 
 const FILE_SENTENCES_PATH = path.join(__dirname, `../../../data/sentences.txt`);
 const FILE_TITLES_PATH = path.join(__dirname, `../../../data/titles.txt`);
