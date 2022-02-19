@@ -8,7 +8,7 @@ errorsRouter.use(`*`, (req, res) => {
   res.status(404).render(`404`, {});
 });
 
-errorsRouter.use((err, req, res) => {
+errorsRouter.use((err, req, res, _next) => {
   console.error(err.stack);
   res.status(500).render(`500`, {});
 });
