@@ -4,7 +4,7 @@ const {Router} = require(`express`);
 
 const errorsRouter = new Router();
 
-errorsRouter.get(`*`, (req, res) => {
+errorsRouter.use(`*`, (req, res) => {
   res.status(404).render(`404`, {});
 });
 

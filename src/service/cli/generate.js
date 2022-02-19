@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require(`fs`).promises;
+const fs = require(`fs/promises`);
 const {getRandomInt, shuffle} = require(`../../utils`);
 const chalk = require(`chalk`);
 const path = require(`path`);
@@ -54,7 +54,7 @@ const generate = {
 
     const count = +params[0] || DEFAULT_COUNT;
     if (count > MAX_OFFER_COUNT) {
-      return console.error(chalk.red(`Не больше 1000 постов`));
+      return console.error(chalk.red(`Не больше ${MAX_OFFER_COUNT} постов`));
     }
     try {
       await fs.writeFile(FILE_NAME, JSON.stringify(generateOffers({count, titles, categories, sentences})));
@@ -63,7 +63,7 @@ const generate = {
       process.exit(1);
     }
     console.log(chalk.green(`Operation success. File created.`));
-    return undefined;
+    return null;
   }
 };
 
