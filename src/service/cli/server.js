@@ -11,7 +11,6 @@ const app = express();
 
 app.get(`/posts`, (req, res) => {
   const mockPath = path.join(__dirname, `..`, MOCK_FILE_NAME);
-  console.log(`mockPath: `, mockPath);
 
   let result = [];
   if (fs.existsSync(mockPath)) {
