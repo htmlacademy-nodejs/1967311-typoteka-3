@@ -5,13 +5,14 @@ const {getRandomInt, shuffle} = require(`../../utils`);
 const chalk = require(`chalk`);
 const path = require(`path`);
 
+const {MOCK_FILE_NAME} = require(`../../constants`);
+
 const MAX_OFFER_COUNT = 1000;
 const DEFAULT_COUNT = 1;
 const MIN_ANNOUNCE_SENTENCE_COUNT = 1;
 const MAX_ANNOUNCE_SENTENCE_COUNT = 5;
 const MIN_FULLTEXT_SENTENCE_COUNT = 10;
 const MAX_FULLTEXT_SENTENCE_COUNT = 50;
-const FILE_NAME = `mocks.json`;
 
 const FILE_SENTENCES_PATH = path.join(__dirname, `../../../data/sentences.txt`);
 const FILE_TITLES_PATH = path.join(__dirname, `../../../data/titles.txt`);
@@ -57,7 +58,7 @@ const generate = {
       return console.error(chalk.red(`Не больше ${MAX_OFFER_COUNT} постов`));
     }
     try {
-      await fs.writeFile(FILE_NAME, JSON.stringify(generateOffers({count, titles, categories, sentences})));
+      await fs.writeFile(MOCK_FILE_NAME, JSON.stringify(generateOffers({count, titles, categories, sentences})));
     } catch (err) {
       console.error(`generation error: `, err);
       process.exit(1);
