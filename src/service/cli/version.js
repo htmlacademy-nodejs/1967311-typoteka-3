@@ -5,7 +5,7 @@ const chalk = require(`chalk`);
 const version = {
   name: `--version`,
   run() {
-    console.log(chalk.blue(packageJsonFile.version));
+    console.info(chalk.blue(packageJsonFile.version));
   }
 };
 
