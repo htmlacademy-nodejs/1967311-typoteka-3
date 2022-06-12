@@ -14,11 +14,9 @@ const app = new Router();
   const mockData = await getMockData();
 
   const articleService = new ArticleService(mockData);
-
   articles(app, articleService);
   categories(app, new CategoryService(mockData));
   search(app, articleService);
-
 
 })();
 
