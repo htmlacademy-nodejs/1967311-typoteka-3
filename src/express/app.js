@@ -17,3 +17,5 @@ app.use(require(`./routes/errors`));
 app.listen(8080, () => {
   console.info(`Express server started on port 8080!`);
 });
+
+module.exports = app;

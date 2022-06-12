@@ -4,9 +4,9 @@
   "description": "Куплю. Продам",
   "main": "./src/service/service.js",
   "scripts": {
-    "test": "npm run eslint",
+    "test": "jest",
     "eslint": "eslint --ext .js src/ --fix",
-    "start-front-server": "nodemon ./src/express/express.js",
+    "start-front-server": "nodemon src/express/app.js",
     "start-api-server": "nodemon ./src/service/serivce.js --server"
   },
   "repository": {
@@ -22,7 +22,9 @@
   "devDependencies": {
     "eslint": "8.5.0",
     "eslint-config-htmlacademy": "0.6.0",
-    "nodemon": "2.0.15"
+    "jest": "^28.1.1",
+    "nodemon": "2.0.15",
+    "supertest": "^6.2.3"
   },
   "dependencies": {
     "chalk": "4.1.2",
